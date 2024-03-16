@@ -1,9 +1,10 @@
 # ESP32 Camera ClearUI
 
-This repository contains a clean user interface (UI) design for the ESP32-CAM module. The ESP32-CAM is a versatile Wi-Fi enabled microcontroller with an integrated camera, making it an ideal platform for various IoT and surveillance projects.
+This repository contains a clean user interface (UI) design for the ESP32-CAM module. The ESP32-CAM is a versatile Wi-Fi enabled microcontroller with an integrated camera, making it an ideal platform for various IoT and surveillance projects. It is also set to use a static IP address for precise machine-learning applications and other projects
 
 ## Features
 
+- **Static IP address**: Aside from sending its IP address via Firebase, it also has a static IP address to allow ease of use in different applications
 - **Clean UI Design**: The user interface is designed to be simple, intuitive, and visually appealing.
 - **Responsive Layout**: The UI is optimized for both desktop and mobile devices, ensuring a consistent experience across different screen sizes.
 - **Customizable Settings**: Users can easily configure camera settings, such as resolution, frame rate, and compression level, directly from the UI.
