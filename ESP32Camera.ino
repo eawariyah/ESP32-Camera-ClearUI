@@ -1,10 +1,6 @@
 #include "esp_camera.h"
 #include <WiFi.h>
 
-IPAddress staticIP(192, 168, 137, 23); // Change this to your desired static IP addresszz
-IPAddress gateway(192,168,0,100);     // Change this to the ip address pc is connected to
-IPAddress subnet(255, 255, 255, 0);    // Change this to your subnet mask
-
 //
 // WARNING!!! PSRAM IC required for UXGA resolution and high JPEG quality
 //            Ensure ESP32 Wrover Module or other board with PSRAM is selected
@@ -39,14 +35,18 @@ IPAddress subnet(255, 255, 255, 0);    // Change this to your subnet mask
 // ===========================
 // Enter your WiFi credentials
 // ===========================
+//const char* ssid = "edwinLaptop";
+//const char* password = "qwertyuiop";
 const char* ssid = "edwinMiFi";
 const char* password = "qwertyuiop";
+IPAddress staticIP(192, 168, 0, 23); // Change this to your desired static IP addresszz
+IPAddress gateway(192, 168, 0, 101);     // Change this to the ip address pc is connected to
+IPAddress subnet(255, 255, 255, 0);    // Change this to your subnet mask
 
 void startCameraServer();
 void setupLedFlash(int pin);
 
 void setup() {
-
   Serial.begin(115200);
   Serial.setDebugOutput(true);
   Serial.println();
@@ -88,7 +88,7 @@ void setup() {
       config.grab_mode = CAMERA_GRAB_LATEST;
     } else {
       // Limit the frame size when PSRAM is not available
-      config.frame_size = FRAMESIZE_UXGA;
+      config.frame_size = FRAMESIZE_SVGA;
       config.fb_location = CAMERA_FB_IN_DRAM;
     }
   } else {
@@ -137,9 +137,10 @@ void setup() {
   setupLedFlash(LED_GPIO_NUM);
 #endif
 
+  WiFi.config(staticIP, gateway, subnet);
+
   WiFi.begin(ssid, password);
   WiFi.setSleep(false);
-  WiFi.config(staticIP, gateway, subnet);
 
 
   while (WiFi.status() != WL_CONNECTED) {
@@ -152,11 +153,11 @@ void setup() {
   startCameraServer();
 
   Serial.print("Camera Ready! Use 'http://");
-//  Serial.print("192.168.1.100");
   Serial.print(WiFi.localIP());
   Serial.println("' to connect");
 }
 
 void loop() {
+  // Do nothing. Everything is done in another task by the web server
   delay(10000);
 }
